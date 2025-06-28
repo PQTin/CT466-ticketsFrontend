@@ -66,6 +66,14 @@ const handleLogin = async () => {
       matKhau: password.value,
     });
     successMessage.value = "Đăng nhập thành công. Đang chuyển trang...";
+
+    setTimeout(() => {
+      if (authStore.isAdmin) {
+        router.push("/admin");
+      } else {
+        router.push("/client");
+      }
+    }, 3000);
   } catch (err) {
     error.value = err;
     setTimeout(() => {
