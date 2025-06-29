@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import login from "@/views/auth/login.vue";
 import adminRap from "@/views/admin/rap.vue";
+import adminMovie from "@/views/admin/movie.vue";
 const routes = [
   {
     path: "/login",
@@ -11,6 +12,11 @@ const routes = [
     path: "/admin",
     name: "adminRap",
     component: adminRap,
+  },
+  {
+    path: "/admin/movie",
+    name: "adminMovie",
+    component: adminMovie,
   },
   {
     path: "/",

@@ -3,7 +3,11 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="text-xl font-bold mb-0">Quản lý Rạp</h2>
       <div class="d-flex gap-2">
-        <button class="btn btn-outline-primary" @click="showAddBranch = true">
+        <button
+          v-if="currentView === 'branch'"
+          class="btn btn-outline-primary"
+          @click="showAddBranch = true"
+        >
           Thêm Chi Nhánh
         </button>
         <button class="btn btn-outline-secondary" @click="toggleView">
