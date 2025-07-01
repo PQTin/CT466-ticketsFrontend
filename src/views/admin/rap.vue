@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
       <h2 class="text-xl font-bold mb-0">Quản lý Rạp</h2>
       <div class="d-flex gap-2">
         <button

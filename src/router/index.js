@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import login from "@/views/auth/login.vue";
 import adminRap from "@/views/admin/rap.vue";
 import adminMovie from "@/views/admin/movie.vue";
+import adminShowtime from "@/views/admin/showtimeCombo.vue";
 const routes = [
   {
     path: "/login",
@@ -17,6 +18,11 @@ const routes = [
     path: "/admin/movie",
     name: "adminMovie",
     component: adminMovie,
+  },
+  {
+    path: "/admin/showtime",
+    name: "adminShowtime",
+    component: adminShowtime,
   },
   {
     path: "/",
