@@ -3,6 +3,7 @@ import login from "@/views/auth/login.vue";
 import adminRap from "@/views/admin/rap.vue";
 import adminMovie from "@/views/admin/movie.vue";
 import adminShowtime from "@/views/admin/showtimeCombo.vue";
+import adminPromotion from "@/views/admin/promotion.vue";
 const routes = [
   {
     path: "/login",
@@ -23,6 +24,11 @@ const routes = [
     path: "/admin/showtime",
     name: "adminShowtime",
     component: adminShowtime,
+  },
+  {
+    path: "/admin/promotion",
+    name: "adminPromotion",
+    component: adminPromotion,
   },
   {
     path: "/",
