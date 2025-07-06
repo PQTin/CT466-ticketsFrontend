@@ -4,6 +4,9 @@ import adminRap from "@/views/admin/rap.vue";
 import adminMovie from "@/views/admin/movie.vue";
 import adminShowtime from "@/views/admin/showtimeCombo.vue";
 import adminPromotion from "@/views/admin/promotion.vue";
+import home from "@/views/client/home.vue";
+import booking from "@/views/client/booking.vue";
+import movieDetail from "@/views/client/movieDetail.vue";
 const routes = [
   {
     path: "/login",
@@ -29,6 +32,23 @@ const routes = [
     path: "/admin/promotion",
     name: "adminPromotion",
     component: adminPromotion,
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: home,
+  },
+  {
+    path: "/booking/:idLichChieu",
+    name: "booking",
+    component: booking,
+    props: true,
+  },
+  {
+    path: "/movieDetail/:idPhim",
+    name: "movieDetail",
+    component: movieDetail,
+    props: true,
   },
   {
     path: "/",
