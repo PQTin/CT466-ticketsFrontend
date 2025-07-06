@@ -38,3 +38,19 @@ export const deleteGenre = (id) => {
 export const getAllGenres = () => {
   return api.get("/movie/genre");
 };
+
+export const getMovieById = (id) => {
+  return api.get(`/movie/movie-by-id/${id}`);
+};
+
+export const getCommentsByMovieId = (id) => {
+  return api.get(`/movie/comments-by-id/${id}`);
+};
+
+export const rateMovie = (data) => {
+  return api.post("/movie/rate-movie", data);
+};
+
+export const getShowtimesByMovieId = (id) => {
+  return api.get(`/movie/showtimes-by-id/${id}`);
+};
