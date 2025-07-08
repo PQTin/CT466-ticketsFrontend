@@ -118,18 +118,20 @@ const submitForm = async () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1050;
 }
 .modal-content {
-  background: white;
+  background: #fdfdfd;
   padding: 20px;
   border-radius: 8px;
   width: 500px;
   max-width: 95%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
 .img-preview {
   max-width: 160px;

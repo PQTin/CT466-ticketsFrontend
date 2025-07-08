@@ -4,60 +4,68 @@
       <h3>Thêm Khuyến Mãi</h3>
 
       <form @submit.prevent="submitForm">
-        <div class="mb-3">
-          <label class="form-label">Mã khuyến mãi</label>
-          <input v-model="form.ma" type="text" class="form-control" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Mã khuyến mãi</label>
+            <input
+              v-model="form.ma"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Phần trăm giảm</label>
+            <input
+              v-model.number="form.phanTramGiam"
+              type="number"
+              class="form-control"
+              min="1"
+              max="100"
+              required
+            />
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Mô tả</label>
-          <textarea
-            v-model="form.moTa"
-            class="form-control"
-            rows="3"
-            required
-          ></textarea>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Loại áp dụng</label>
+            <select v-model="form.loaiApDung" class="form-control" required>
+              <option value="tatca">Tất cả</option>
+              <option value="ve">Chỉ vé</option>
+              <option value="combo">Chỉ combo</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Mô tả</label>
+            <textarea
+              v-model="form.moTa"
+              class="form-control"
+              rows="1"
+              required
+            ></textarea>
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Phần trăm giảm</label>
-          <input
-            v-model.number="form.phanTramGiam"
-            type="number"
-            class="form-control"
-            min="1"
-            max="100"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Loại áp dụng</label>
-          <select v-model="form.loaiApDung" class="form-control" required>
-            <option value="tatca">Tất cả</option>
-            <option value="ve">Chỉ vé</option>
-            <option value="combo">Chỉ combo</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Ngày bắt đầu</label>
-          <input
-            v-model="form.ngayBatDau"
-            type="date"
-            class="form-control"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Ngày kết thúc</label>
-          <input
-            v-model="form.ngayKetThuc"
-            type="date"
-            class="form-control"
-            required
-          />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Ngày bắt đầu</label>
+            <input
+              v-model="form.ngayBatDau"
+              type="date"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Ngày kết thúc</label>
+            <input
+              v-model="form.ngayKetThuc"
+              type="date"
+              class="form-control"
+              required
+            />
+          </div>
         </div>
 
         <div class="mb-3">
@@ -155,18 +163,20 @@ const submitForm = async () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1050;
 }
 .modal-content {
-  background: white;
+  background: #fdfdfd;
   padding: 20px;
   border-radius: 8px;
   width: 500px;
   max-width: 95%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
 .img-preview {
   max-width: 160px;

@@ -32,7 +32,12 @@
           >
             <div class="card shadow-sm border-0">
               <div class="card-body p-2 d-flex align-items-center gap-2">
-                <img :src="getImage(promo)" alt="Banner" class="promo-img" />
+                <img
+                  :src="getImage(promo)"
+                  alt="Banner"
+                  class="promo-img"
+                  loading="lazy"
+                />
                 <div class="flex-grow-1">
                   <h6 class="mb-1">{{ promo.ma }}</h6>
                   <small class="text-muted" style="font-size: 12px">
@@ -291,13 +296,16 @@ defineExpose({ fetchPromotions });
 
 .promo-card {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   border-radius: 8px;
+  will-change: transform;
 }
 
 .promo-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
 .promo-card.active {
@@ -306,7 +314,7 @@ defineExpose({ fetchPromotions });
 }
 
 .promo-img {
-  width: 30%;
+  width: 100px;
   height: 60px;
   object-fit: cover;
   border-radius: 6px;

@@ -69,17 +69,8 @@
 
           <!-- Section 2: Đánh giá -->
           <div class="snap-section">
-            <div class="card p-3 border-0 shadow-sm">
-              <h5 class="mb-2">Đánh giá phim {{ selectedMovie.ten }}</h5>
-              <p>
-                <strong>Điểm trung bình:</strong>
-                {{ selectedMovie.diemTrungBinh }}
-              </p>
-              <p>
-                <strong>Số lượt đánh giá:</strong> {{ selectedMovie.soDanhGia }}
-              </p>
-              <hr />
-              <p class="text-muted">-lấy đánh giá của người dùng-</p>
+            <div class="card border-0 shadow-sm">
+              <comments v-if="selectedMovie" :movie-id="selectedMovie.id" />
             </div>
           </div>
         </div>
@@ -93,7 +84,7 @@ import { ref, onMounted, computed } from "vue";
 import Swal from "sweetalert2";
 import { getAllMovies, softDeleteMovie } from "@/services/movie";
 import movieForm from "@/components/admin/movie/movieEditForm.vue";
-
+import comments from "@/components/admin/movie/comments.vue";
 const movies = ref([]);
 const selectedMovie = ref(null);
 const searchQuery = ref("");
