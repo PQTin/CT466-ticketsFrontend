@@ -44,6 +44,15 @@
         >
           Khuyến mãi
         </RouterLink>
+
+        <RouterLink
+          to="/admin/ticket"
+          class="nav-link"
+          active-class=""
+          exact-active-class="active"
+        >
+          vé
+        </RouterLink>
       </ul>
 
       <div

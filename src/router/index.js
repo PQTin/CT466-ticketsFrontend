@@ -8,6 +8,7 @@ import adminRap from "@/views/admin/rap.vue";
 import adminMovie from "@/views/admin/movie.vue";
 import adminShowtime from "@/views/admin/showtimeCombo.vue";
 import adminPromotion from "@/views/admin/promotion.vue";
+import adminTicket from "@/views/admin/ticket.vue";
 
 import home from "@/views/client/home.vue";
 import booking from "@/views/client/booking.vue";
@@ -41,6 +42,11 @@ const routes = [
         path: "promotion",
         name: "adminPromotion",
         component: adminPromotion,
+      },
+      {
+        path: "ticket",
+        name: "adminTicket",
+        component: adminTicket,
       },
     ],
   },
