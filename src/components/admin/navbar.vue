@@ -5,12 +5,17 @@
     <div
       class="container-fluid d-flex justify-content-between align-items-center"
     >
-      <div class="fw-bold fs-4 text-primary">Admin Panel</div>
+      <RouterLink
+        to="/admin"
+        class="fw-bold fs-4 text-primary text-decoration-none"
+      >
+        Admin Panel
+      </RouterLink>
 
       <ul class="navbar-nav d-flex flex-row gap-3">
         <li class="nav-item">
           <RouterLink
-            to="/admin"
+            to="/admin/rap"
             class="nav-link"
             active-class=""
             exact-active-class="active"
@@ -51,7 +56,15 @@
           active-class=""
           exact-active-class="active"
         >
-          vé
+          Vé
+        </RouterLink>
+        <RouterLink
+          to="/admin/user"
+          class="nav-link"
+          active-class=""
+          exact-active-class="active"
+        >
+          Người dùng
         </RouterLink>
       </ul>
 
