@@ -12,9 +12,12 @@ import adminTicket from "@/views/admin/ticket.vue";
 import adminUser from "@/views/admin/user.vue";
 import dashboard from "@/views/admin/dashboard.vue";
 
+import clientLayout from "@/layouts/clientLayout.vue";
 import home from "@/views/client/home.vue";
 import booking from "@/views/client/booking.vue";
 import movieDetail from "@/views/client/movieDetail.vue";
+import userTicket from "@/views/client/userTicket.vue";
+import showtime from "@/views/client/showtime.vue";
 const routes = [
   {
     path: "/login",
@@ -59,22 +62,38 @@ const routes = [
     ],
   },
   {
-    path: "/home",
-    name: "home",
-    component: home,
+    path: "/",
+    component: clientLayout,
+    children: [
+      {
+        path: "home",
+        name: "home",
+        component: home,
+      },
+      {
+        path: "booking/:idLichChieu",
+        name: "booking",
+        component: booking,
+        props: true,
+      },
+      {
+        path: "movieDetail/:idPhim",
+        name: "movieDetail",
+        component: movieDetail,
+      },
+      {
+        path: "userTicket",
+        name: "userTicket",
+        component: userTicket,
+      },
+      {
+        path: "showtime",
+        name: "showtime",
+        component: showtime,
+      },
+    ],
   },
-  {
-    path: "/booking/:idLichChieu",
-    name: "booking",
-    component: booking,
-    props: true,
-  },
-  {
-    path: "/movieDetail/:idPhim",
-    name: "movieDetail",
-    component: movieDetail,
-    props: true,
-  },
+
   {
     path: "/",
     redirect: "/login",

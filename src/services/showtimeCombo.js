@@ -8,8 +8,8 @@ export const getAllShowtimesAdmin = () => {
   return api.get("/showtime/admin");
 };
 
-export const getAllShowtimesClient = () => {
-  return api.get("/showtime/client");
+export const getShowtimesWithFilters = (filters) => {
+  return api.get("/showtime/withFilters", { params: filters });
 };
 
 export const getShowtimeById = (id) => {

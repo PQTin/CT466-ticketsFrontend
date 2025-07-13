@@ -85,6 +85,9 @@
 import { ref, watch, onMounted, computed } from "vue";
 import { paymentCalculator, bookTicket } from "@/services/booking";
 import Swal from "sweetalert2";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 // Props
 const props = defineProps({
@@ -212,7 +215,9 @@ async function handleBooking() {
         timer: 2500,
         showConfirmButton: false,
       });
-
+      setTimeout(() => {
+        router.push({ name: "userTicket" });
+      }, 2500);
       emit("booking-success", res.data.data);
     }
   } catch (err) {
