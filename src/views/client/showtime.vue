@@ -1,120 +1,137 @@
 <template>
   <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center">
       <h2 class="text-white flex-grow-1">Danh sách Suất Chiếu</h2>
+      <input
+        type="text"
+        class="form-control form-control-sm w-25 ms-auto bg-dark text-white border-secondary"
+        placeholder="Tìm kiếm theo phim, chi nhánh, ngày..."
+        v-model="searchQuery"
+      />
     </div>
+    <div class="scrollable-content">
+      <!-- Danh sách suất chiếu dạng card -->
 
-    <!-- Danh sách suất chiếu dạng card -->
-    <div class="row justify-content-center">
-      <div
-        v-for="item in paginatedShowtimes"
-        :key="item.id"
-        class="col-md-6 col-lg-3 mb-4"
-      >
+      <div class="row justify-content-center">
         <div
-          class="card showtime-card"
-          :class="{ 'expanded-card': selectedShowtimeId === item.id }"
+          v-if="paginatedShowtimes.length"
+          v-for="item in paginatedShowtimes"
+          :key="item.id"
+          class="col-md-6 col-lg-3 mb-4"
         >
-          <transition name="fade-height">
-            <div
-              class="showtime-content-wrapper"
-              v-show="selectedShowtimeId === item.id || true"
-            >
+          <div
+            class="card showtime-card"
+            :class="{ 'expanded-card': selectedShowtimeId === item.id }"
+          >
+            <transition name="fade-height">
               <div
-                class="showtime-content"
-                :class="{ expanded: selectedShowtimeId === item.id }"
+                class="showtime-content-wrapper"
+                v-show="selectedShowtimeId === item.id || true"
               >
-                <div class="showtime-image">
-                  <img
-                    :src="`http://localhost:3000/uploads/${getPosterPath(item.Phim?.PhuongTienMedia)}`"
-                    class="card-img-top"
-                    alt="Poster phim"
-                  />
-                </div>
                 <div
-                  v-show="selectedShowtimeId === item.id"
-                  class="showtime-details"
+                  class="showtime-content"
+                  :class="{ expanded: selectedShowtimeId === item.id }"
                 >
-                  <p>
-                    <strong>Chi nhánh:</strong><br />
-                    {{ item.PhongChieu?.ChiNhanh?.ten }}
-                  </p>
-                  <p>
-                    <strong>Phòng:</strong><br />
-                    {{ item.PhongChieu?.ten }}
-                  </p>
-                  <p>
-                    <strong>Giá vé:</strong> <br />{{
-                      formatCurrency(item.giaVe)
-                    }}
-                  </p>
-                  <p>
-                    <strong>Bắt đầu:</strong> <br />{{
-                      formatDate(item.batDau)
-                    }}
-                  </p>
-                  <button
-                    class="btn btn-outline-light btn-sm"
-                    @click="goToDetail(item.Phim.id)"
+                  <div class="showtime-image">
+                    <img
+                      :src="`http://localhost:3000/uploads/${getPosterPath(item.Phim?.PhuongTienMedia)}`"
+                      class="card-img-top"
+                      alt="Poster phim"
+                    />
+                  </div>
+                  <div
+                    v-show="selectedShowtimeId === item.id"
+                    class="showtime-details"
                   >
-                    Chi tiết phim
-                  </button>
+                    <p>
+                      <strong>Chi nhánh:</strong><br />
+                      {{ item.PhongChieu?.ChiNhanh?.ten }}
+                    </p>
+                    <p>
+                      <strong>Phòng:</strong><br />
+                      {{ item.PhongChieu?.ten }}
+                    </p>
+                    <p>
+                      <strong>Giá vé:</strong> <br />{{
+                        formatCurrency(item.giaVe)
+                      }}
+                    </p>
+                    <p>
+                      <strong>Bắt đầu:</strong> <br />{{
+                        formatDate(item.batDau)
+                      }}
+                    </p>
+                    <button
+                      class="btn btn-outline-light btn-sm"
+                      @click="goToDetail(item.Phim.id)"
+                    >
+                      Chi tiết phim
+                    </button>
+                  </div>
                 </div>
               </div>
+            </transition>
+            <div class="card-body text-center">
+              <h4 class="movie-title">{{ item.Phim.ten }}</h4>
+              <div v-if="item.soGheTrong === 0" style="color: red">Hết vé.</div>
+              <div v-else style="color: green">
+                Còn {{ item.soGheTrong }} vé.
+              </div>
+              <button
+                class="btn btn-outline-light btn-sm mt-2 me-2"
+                @click="toggleDetails(item.id)"
+              >
+                {{ selectedShowtimeId === item.id ? "Thu gọn" : "Chi tiết" }}
+              </button>
+              <button
+                v-if="item.soGheTrong > 0"
+                class="btn btn-outline-light btn-sm mt-2"
+                @click="goToBooking(item.id)"
+              >
+                Đặt vé
+              </button>
             </div>
-          </transition>
-          <div class="card-body text-center">
-            <h4 class="movie-title">{{ item.Phim.ten }}</h4>
-            <div v-if="item.soGheTrong === 0" style="color: red">Hết vé.</div>
-            <div v-else style="color: green">Còn {{ item.soGheTrong }} vé.</div>
-            <button
-              class="btn btn-outline-light btn-sm mt-2 me-2"
-              @click="toggleDetails(item.id)"
-            >
-              {{ selectedShowtimeId === item.id ? "Thu gọn" : "Chi tiết" }}
-            </button>
-            <button
-              v-if="item.soGheTrong > 0"
-              class="btn btn-outline-light btn-sm mt-2"
-              @click="goToBooking(item.id)"
-            >
-              Đặt vé
-            </button>
           </div>
         </div>
+        <div v-else class="text-center text-light mt-5">
+          <h5>Không tìm thấy suất chiếu phù hợp.</h5>
+        </div>
       </div>
-    </div>
 
-    <!-- Phân trang -->
-    <nav v-if="totalPages > 1" class="mt-4">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" :class="{ disabled: currentPage === 1 }">
-          <button class="page-link" @click="changePage(currentPage - 1)">
-            Trước
-          </button>
-        </li>
-        <li
-          v-for="page in totalPages"
-          :key="page"
-          class="page-item"
-          :class="{ active: currentPage === page }"
-        >
-          <button class="page-link" @click="changePage(page)">
-            {{ page }}
-          </button>
-        </li>
-        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-          <button class="page-link" @click="changePage(currentPage + 1)">
-            Sau
-          </button>
-        </li>
-      </ul>
-    </nav>
+      <!-- Phân trang -->
+      <nav v-if="totalPages > 1" class="mt-1">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <button class="page-link" @click="changePage(currentPage - 1)">
+              Trước
+            </button>
+          </li>
+          <li
+            v-for="page in totalPages"
+            :key="page"
+            class="page-item"
+            :class="{ active: currentPage === page }"
+          >
+            <button class="page-link" @click="changePage(page)">
+              {{ page }}
+            </button>
+          </li>
+          <li
+            class="page-item"
+            :class="{ disabled: currentPage === totalPages }"
+          >
+            <button class="page-link" @click="changePage(currentPage + 1)">
+              Sau
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { getShowtimesWithFilters } from "@/services/showtimeCombo";
 
@@ -123,6 +140,11 @@ const selectedShowtimeId = ref(null);
 const currentPage = ref(1);
 const perPage = 8;
 const router = useRouter();
+const searchQuery = ref("");
+
+watch(searchQuery, () => {
+  currentPage.value = 1;
+});
 
 const fetchShowtimes = async () => {
   try {
@@ -136,6 +158,29 @@ const fetchShowtimes = async () => {
 };
 
 onMounted(fetchShowtimes);
+
+const filteredShowtimes = computed(() => {
+  const q = searchQuery.value.toLowerCase().trim();
+  if (!q) return showtimes.value;
+
+  const keywords = q
+    .split(/[,;|]+/)
+    .map((k) => k.trim())
+    .filter(Boolean);
+
+  return showtimes.value.filter((item) => {
+    const combined = [
+      item?.Phim?.ten,
+      item?.PhongChieu?.ChiNhanh?.ten,
+      new Date(item.batDau).toLocaleDateString("vi-VN"),
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    return keywords.every((kw) => combined.includes(kw));
+  });
+});
 
 const toggleDetails = (id) => {
   selectedShowtimeId.value = selectedShowtimeId.value === id ? null : id;
@@ -158,11 +203,13 @@ const formatCurrency = (num) => {
   }).format(num);
 };
 
-const totalPages = computed(() => Math.ceil(showtimes.value.length / perPage));
+const totalPages = computed(() =>
+  Math.ceil(filteredShowtimes.value.length / perPage)
+);
 
 const paginatedShowtimes = computed(() => {
   const start = (currentPage.value - 1) * perPage;
-  return showtimes.value.slice(start, start + perPage);
+  return filteredShowtimes.value.slice(start, start + perPage);
 });
 
 const changePage = (page) => {
@@ -182,6 +229,7 @@ const goToBooking = (showtimeId) => {
 
 <style scoped>
 .container-fluid {
+  height: 100%;
   background-color: #121212;
   padding-top: 20px;
 }
@@ -273,5 +321,28 @@ const goToBooking = (showtimeId) => {
 .fade-height-leave-from {
   max-height: 500px;
   opacity: 1;
+}
+
+input.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+input::placeholder {
+  color: #ccc !important;
+  opacity: 1;
+}
+
+.scrollable-content {
+  flex: 1;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollable-content::-webkit-scrollbar {
+  display: none;
 }
 </style>

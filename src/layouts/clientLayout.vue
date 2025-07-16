@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout-wrapper">
     <Navbar />
     <main :class="mainClass">
       <router-view />
@@ -20,9 +20,24 @@ const mainClass = computed(() =>
 </script>
 
 <style scoped>
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 .client-main {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  overflow: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.client-main::-webkit-scrollbar {
+  display: none;
 }
 
 .home-page {

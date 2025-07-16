@@ -1,13 +1,17 @@
 <template>
   <div class="page-scroll">
-    <!-- Section 1 -->
+    <promotionOverlay />
+
     <section class="section full-height">
       <sidebar />
     </section>
 
-    <!-- Section 2 -->
     <section class="section auto-height">
       <showtime />
+    </section>
+
+    <section class="section auto-height">
+      <movie />
     </section>
   </div>
 </template>
@@ -15,6 +19,8 @@
 <script setup>
 import sidebar from "@/components/client/sidebar.vue";
 import showtime from "@/views/client/showtime.vue";
+import movie from "@/views/client/movie.vue";
+import promotionOverlay from "@/components/client/promotionOverlay.vue";
 </script>
 
 <style scoped>
@@ -35,6 +41,7 @@ import showtime from "@/views/client/showtime.vue";
 .section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  transition: transform 0.6s ease;
 }
 
 .full-height {
@@ -44,8 +51,8 @@ import showtime from "@/views/client/showtime.vue";
 
 .auto-height {
   min-height: 100vh;
-  padding-top: 55px; /* Tránh bị navbar che */
-  background-color: #121212; /* Màu nền đen cho khoảng trống */
+  padding-top: 50px;
+  background-color: #121212;
   box-sizing: border-box;
 }
 </style>

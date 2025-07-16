@@ -32,10 +32,6 @@
             {{ selectedTicket.LichChieu?.PhongChieu?.ChiNhanh?.ten }}
           </div>
           <div class="mb-2">
-            <strong>Người đặt:</strong>
-            {{ selectedTicket.NguoiDung?.tenDangNhap }}
-          </div>
-          <div class="mb-2">
             <strong>Mã giảm giá:</strong>
             {{ selectedTicket.maGiamGiaSuDung || "Không" }}
           </div>

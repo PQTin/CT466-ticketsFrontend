@@ -18,6 +18,8 @@ import booking from "@/views/client/booking.vue";
 import movieDetail from "@/views/client/movieDetail.vue";
 import userTicket from "@/views/client/userTicket.vue";
 import showtime from "@/views/client/showtime.vue";
+import movie from "@/views/client/movie.vue";
+import promotion from "@/views/client/promotion.vue";
 const routes = [
   {
     path: "/login",
@@ -66,7 +68,7 @@ const routes = [
     component: clientLayout,
     children: [
       {
-        path: "home",
+        path: "",
         name: "home",
         component: home,
       },
@@ -91,6 +93,8 @@ const routes = [
         name: "showtime",
         component: showtime,
       },
+      { path: "movie", name: "movie", component: movie },
+      { path: "promotion", name: "promotion", component: promotion },
     ],
   },
 

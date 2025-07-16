@@ -12,6 +12,14 @@ export const getUserNotifications = () => {
   return api.get("/user/notifications");
 };
 
+export const getUnreadNotificationCount = () => {
+  return api.get("/user/notification/unread-count");
+};
+
+export const markNotificationsAsRead = (ids) => {
+  return api.put("/user/notification/mark-read", ids);
+};
+
 export const sendNotification = (data) => {
   return api.post("/user/sendNotification", data);
 };
