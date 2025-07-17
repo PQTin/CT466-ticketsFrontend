@@ -1,5 +1,5 @@
 <template>
-  <div v-if="combos.length === 0" class="text-center text-muted py-4">
+  <div v-if="combos.length === 0" class="text-center text-secondary py-4">
     Hiện chưa có combo nào.
   </div>
 
@@ -7,15 +7,16 @@
     <div class="combo-scroll-list">
       <div v-for="combo in combos" :key="combo.id" class="combo-card-item">
         <div class="card h-100 border-0 rounded-3">
-          <img
-            :src="`http://localhost:3000/uploads/${combo.duongDanAnh}`"
-            alt="Combo Image"
-            class="card-img-top rounded-top"
-            style="height: 160px; object-fit: cover"
-          />
+          <div class="combo-img-wrapper">
+            <img
+              :src="`http://localhost:3000/uploads/${combo.duongDanAnh}`"
+              alt="Combo Image"
+              class="combo-img"
+            />
+          </div>
           <div class="card-body d-flex flex-column p-3">
             <h5 class="fw-semibold text-white mb-2">{{ combo.ten }}</h5>
-            <p class="text-muted small flex-grow-1 mb-3">
+            <p class="text-secondary small flex-grow-1 mb-3">
               {{ combo.moTa }}
             </p>
             <div class="d-flex justify-content-between align-items-center">
@@ -134,5 +135,21 @@ onMounted(fetchCombos);
 .card-body {
   display: flex;
   flex-direction: column;
+}
+.combo-img-wrapper {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  overflow: hidden;
+}
+
+.combo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 </style>

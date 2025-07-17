@@ -31,7 +31,7 @@
           <div class="col-md-6 mb-3">
             <label class="form-label">Loại áp dụng</label>
             <select v-model="form.loaiApDung" class="form-control" required>
-              <option value="tatca">Tất cả</option>
+              <option value="all">Tất cả</option>
               <option value="ve">Chỉ vé</option>
               <option value="combo">Chỉ combo</option>
             </select>

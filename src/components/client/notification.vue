@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, defineEmits } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { getUserNotifications, markNotificationsAsRead } from "@/services/user";
 import { useAuthStore } from "@/store/authStore";
 

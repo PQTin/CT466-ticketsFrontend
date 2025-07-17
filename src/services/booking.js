@@ -6,3 +6,6 @@ export const addComboToTicket = (data) =>
 
 export const paymentCalculator = (data) =>
   api.post("/bookTicket/calculate-payment", data);
+
+export const calculateComboTotal = (data) =>
+  api.post("/bookTicket/calculate-combo", data);

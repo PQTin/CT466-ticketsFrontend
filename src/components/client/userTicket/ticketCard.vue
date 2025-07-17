@@ -55,6 +55,7 @@
       <TicketDetail
         v-if="selectedTicket"
         :selectedTicket="selectedTicket"
+        :key="selectedTicket.id"
         :formatTime="formatTime"
         :statusColor="statusColor"
         @updated="fetchTickets"

@@ -22,7 +22,7 @@
             <img
               :src="`http://localhost:3000/uploads/${combo.duongDanAnh}`"
               class="rounded shadow-sm"
-              style="width: 100px; height: 60px; object-fit: cover"
+              style="width: 50px; height: 60px; object-fit: hidden"
             />
             <div class="flex-grow-1">
               <div class="fw-semibold">{{ combo.ten }}</div>

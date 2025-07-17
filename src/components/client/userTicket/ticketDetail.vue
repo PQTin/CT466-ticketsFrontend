@@ -1,5 +1,5 @@
 <template>
-  <div class="expanded-view overflow-auto">
+  <div v-if="!showAddCombo" class="expanded-view overflow-auto">
     <div class="card p-4 border-0 shadow-sm">
       <h5 class="mb-4">Thông tin chi tiết vé</h5>
       <div class="row g-4">
@@ -96,15 +96,17 @@
         </div>
       </div>
 
-      <!-- Tổng tiền + Hủy -->
+      <!-- Tổng tiền + Hủy + Thêm combo-->
       <div
         v-if="showActions"
         class="d-flex justify-content-between align-items-center border-top mt-2"
       >
-        <!-- Nút Hủy -->
-        <div>
-          <button class="btn btn-outline-danger mt-2" @click="handleCancel">
+        <div class="d-flex align-items-center gap-3 mt-2">
+          <button class="btn btn-outline-danger" @click="handleCancel">
             Hủy vé
+          </button>
+          <button class="btn btn-outline-light" @click="showAddCombo = true">
+            Thêm Combo
           </button>
         </div>
 
@@ -123,6 +125,12 @@
       </div>
     </div>
   </div>
+  <addCombo
+    v-else
+    :veId="selectedTicket.id"
+    @added="handleComboAdded"
+    @close="showAddCombo = false"
+  />
 </template>
 
 <script setup>
@@ -130,6 +138,7 @@ import { ref, watch, computed } from "vue";
 import QrcodeVue from "qrcode.vue";
 import { getCombosByTicketId, cancelTicket } from "@/services/ticket";
 import Swal from "sweetalert2";
+import addCombo from "./addCombo.vue";
 
 const props = defineProps({
   selectedTicket: Object,
@@ -138,11 +147,14 @@ const props = defineProps({
 });
 
 const comboList = ref([]);
+const showAddCombo = ref(false);
 const emit = defineEmits(["updated"]);
 
 watch(
   () => props.selectedTicket,
   async (ticket) => {
+    showAddCombo.value = false;
+
     if (ticket) {
       try {
         const res = await getCombosByTicketId(ticket.id);
@@ -183,6 +195,10 @@ const handleCancel = async () => {
       "error"
     );
   }
+};
+const handleComboAdded = () => {
+  showAddCombo.value = false;
+  emit("updated", props.selectedTicket.id);
 };
 </script>
 
