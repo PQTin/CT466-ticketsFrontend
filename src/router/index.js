@@ -22,7 +22,7 @@ import showtime from "@/views/client/showtime.vue";
 import movie from "@/views/client/movie.vue";
 import promotion from "@/views/client/promotion.vue";
 import profile from "@/views/client/profile.vue";
-//import branch from "@/views/client/branchCard.vue";
+import branch from "@/views/client/branchCard.vue";
 
 const routes = [
   {
@@ -105,11 +105,11 @@ const routes = [
         name: "register",
         component: register,
       },
-      // {
-      //   path: "/branch",
-      //   name: "branch",
-      //   component: branch,
-      // },
+      {
+        path: "/branch",
+        name: "branch",
+        component: branch,
+      },
     ],
   },
 

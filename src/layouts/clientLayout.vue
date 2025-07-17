@@ -4,6 +4,7 @@
     <main :class="mainClass">
       <router-view />
     </main>
+    <Footer />
   </div>
 </template>
 
@@ -11,7 +12,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Navbar from "@/components/client/navbar.vue";
-
+import Footer from "@/components/client/footer.vue";
 const route = useRoute();
 
 const mainClass = computed(() =>
@@ -23,19 +24,15 @@ const mainClass = computed(() =>
 .layout-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
-.client-main {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: #121212;
-  overflow: auto;
 
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+.client-main {
+  flex-grow: 1;
+  width: 100%;
+  background-color: #121212;
 }
+
 .client-main::-webkit-scrollbar {
   display: none;
 }
@@ -45,6 +42,6 @@ const mainClass = computed(() =>
 }
 
 .default-page {
-  margin-top: 50px;
+  padding-top: 60px;
 }
 </style>

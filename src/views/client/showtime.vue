@@ -1,13 +1,27 @@
 <template>
   <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center">
-      <h2 class="text-white flex-grow-1">Danh sách Suất Chiếu</h2>
+      <h2 class="text-white flex-grow-1">
+        Danh sách Suất Chiếu
+        <span v-if="branchName">- {{ branchName }}</span>
+      </h2>
       <input
         type="text"
         class="form-control form-control-sm w-25 ms-auto bg-dark text-white border-secondary"
-        placeholder="Tìm kiếm theo phim, chi nhánh, ngày..."
+        :placeholder="
+          branchName
+            ? 'Tìm kiếm theo phim, ngày...'
+            : 'Tìm kiếm theo phim, chi nhánh, ngày...'
+        "
         v-model="searchQuery"
       />
+      <button
+        v-if="branchName"
+        class="btn btn-outline-warning btn-sm ms-3"
+        @click="clearBranchFilter"
+      >
+        Xem tất cả
+      </button>
     </div>
     <div class="scrollable-content">
       <!-- Danh sách suất chiếu dạng card -->
@@ -132,7 +146,7 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { getShowtimesWithFilters } from "@/services/showtimeCombo";
 
 const showtimes = ref([]);
@@ -141,6 +155,9 @@ const currentPage = ref(1);
 const perPage = 8;
 const router = useRouter();
 const searchQuery = ref("");
+
+const route = useRoute();
+const branchName = ref("");
 
 watch(searchQuery, () => {
   currentPage.value = 1;
@@ -157,11 +174,19 @@ const fetchShowtimes = async () => {
   }
 };
 
-onMounted(fetchShowtimes);
+onMounted(() => {
+  fetchShowtimes();
+});
+watch(
+  () => route.query.ten,
+  (newVal) => {
+    branchName.value = newVal || "";
+  },
+  { immediate: true }
+);
 
 const filteredShowtimes = computed(() => {
   const q = searchQuery.value.toLowerCase().trim();
-  if (!q) return showtimes.value;
 
   const keywords = q
     .split(/[,;|]+/)
@@ -169,10 +194,18 @@ const filteredShowtimes = computed(() => {
     .filter(Boolean);
 
   return showtimes.value.filter((item) => {
+    if (
+      branchName.value &&
+      item?.PhongChieu?.ChiNhanh?.ten !== branchName.value
+    ) {
+      return false;
+    }
+    if (!q) return true;
+
     const combined = [
       item?.Phim?.ten,
-      item?.PhongChieu?.ChiNhanh?.ten,
       new Date(item.batDau).toLocaleDateString("vi-VN"),
+      !branchName.value ? item?.PhongChieu?.ChiNhanh?.ten : null,
     ]
       .filter(Boolean)
       .join(" ")
@@ -181,6 +214,12 @@ const filteredShowtimes = computed(() => {
     return keywords.every((kw) => combined.includes(kw));
   });
 });
+
+const clearBranchFilter = () => {
+  router.replace({ name: "showtime" });
+  branchName.value = "";
+  searchQuery.value = "";
+};
 
 const toggleDetails = (id) => {
   selectedShowtimeId.value = selectedShowtimeId.value === id ? null : id;
