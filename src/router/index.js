@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/store/authStore";
 
 import login from "@/views/auth/login.vue";
+import register from "@/views/auth/register.vue";
 
 import adminLayout from "@/layouts/adminLayout.vue";
 import adminRap from "@/views/admin/rap.vue";
@@ -20,12 +21,10 @@ import userTicket from "@/views/client/userTicket.vue";
 import showtime from "@/views/client/showtime.vue";
 import movie from "@/views/client/movie.vue";
 import promotion from "@/views/client/promotion.vue";
+import profile from "@/views/client/profile.vue";
+//import branch from "@/views/client/branchCard.vue";
+
 const routes = [
-  {
-    path: "/login",
-    name: "login",
-    component: login,
-  },
   {
     path: "/admin",
     component: adminLayout,
@@ -95,16 +94,32 @@ const routes = [
       },
       { path: "movie", name: "movie", component: movie },
       { path: "promotion", name: "promotion", component: promotion },
+      { path: "profile", name: "profile", component: profile },
+      {
+        path: "/login",
+        name: "login",
+        component: login,
+      },
+      {
+        path: "/register",
+        name: "register",
+        component: register,
+      },
+      // {
+      //   path: "/branch",
+      //   name: "branch",
+      //   component: branch,
+      // },
     ],
   },
 
   {
     path: "/",
-    redirect: "/login",
+    redirect: "/",
   },
   {
     path: "/:pathMatch(.*)*",
-    redirect: "/login",
+    redirect: "/",
   },
 ];
 
@@ -122,7 +137,7 @@ router.beforeEach((to, from, next) => {
       return next("/login");
     }
     if (!auth.isAdmin) {
-      return next("/home");
+      return next("/");
     }
   }
 

@@ -13,6 +13,18 @@
             alt="avatar"
           />
           <input type="file" class="form-control mt-2" @change="handleFile" />
+          <div class="mt-4 d-flex gap-2">
+            <button class="btn btn-outline-primary" type="submit">
+              Lưu thay đổi
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              @click="resetForm"
+            >
+              Đặt lại
+            </button>
+          </div>
         </div>
 
         <!-- Thông tin -->
@@ -47,18 +59,14 @@
               <option value="bad">Bị khoá</option>
             </select>
           </div>
-
-          <div class="mt-4 d-flex gap-2">
-            <button class="btn btn-outline-primary" type="submit">
-              Lưu thay đổi
-            </button>
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              @click="resetForm"
-            >
-              Đặt lại
-            </button>
+          <div class="mb-3">
+            <label class="form-label">Mật khẩu mới</label>
+            <input
+              v-model="form.matKhau"
+              type="password"
+              class="form-control"
+              placeholder="Để trống nếu không đổi"
+            />
           </div>
         </div>
       </div>
@@ -120,7 +128,9 @@ const handleSubmit = async () => {
     if (avatarFile.value) {
       formData.append("avatar", avatarFile.value);
     }
-
+    if (form.value.matKhau) {
+      formData.append("matKhau", form.value.matKhau);
+    }
     const response = await updateUserByAdmin(form.value.id, formData);
     const message = response.data.message;
     Swal.fire({

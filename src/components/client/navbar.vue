@@ -72,6 +72,9 @@
             @click="toggleDropdown"
           />
           <div v-if="showMenu" class="dropdown-menu show">
+            <RouterLink to="/profile" class="dropdown-item">
+              Thông tin cá nhân
+            </RouterLink>
             <button class="dropdown-item text-danger" @click="logout">
               Đăng xuất
             </button>
@@ -90,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/store/authStore";
 import notification from "@/components/client/notification.vue";
@@ -114,6 +117,15 @@ const refreshUnreadCount = async () => {
     console.error("Lỗi khi lấy số lượng thông báo chưa đọc:", err);
   }
 };
+// khi thay đổi tài khoảng
+watch(
+  () => auth.isLoggedIn,
+  (newVal) => {
+    if (newVal) {
+      refreshUnreadCount();
+    }
+  }
+);
 
 const toggleNotifications = () => {
   showNotifications.value = !showNotifications.value;

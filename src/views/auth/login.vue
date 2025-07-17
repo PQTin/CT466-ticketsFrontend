@@ -2,8 +2,9 @@
   <div
     class="container d-flex justify-content-center align-items-center vh-100"
   >
-    <div class="card p-4 shadow" style="width: 100%; max-width: 400px">
+    <div class="card login-card p-4 shadow-lg text-light">
       <h3 class="text-center mb-4">Đăng nhập</h3>
+
       <p v-if="error" class="text-danger text-center mt-3">{{ error }}</p>
       <p v-if="successMessage" class="text-success text-center mt-3">
         {{ successMessage }}
@@ -15,7 +16,7 @@
           <input
             v-model="username"
             type="text"
-            class="form-control"
+            class="form-control dark-input"
             id="username"
             placeholder="Nhập tên đăng nhập"
             required
@@ -27,11 +28,17 @@
           <input
             v-model="password"
             type="password"
-            class="form-control"
+            class="form-control dark-input"
             id="password"
             placeholder="Nhập mật khẩu"
             required
           />
+        </div>
+        <div class="text-center mt-3 mb-2">
+          <span>Bạn chưa có tài khoản?</span>
+          <a @click.prevent="goToRegister" href="#" class="text-primary ms-1"
+            >Đăng ký ngay</a
+          >
         </div>
 
         <button type="submit" class="btn btn-primary w-100" :disabled="loading">
@@ -71,9 +78,9 @@ const handleLogin = async () => {
       if (authStore.isAdmin) {
         router.push("/admin");
       } else {
-        router.push("/client");
+        router.push("/");
       }
-    }, 3000);
+    }, 2000);
   } catch (err) {
     error.value = err;
     setTimeout(() => {
@@ -83,4 +90,31 @@ const handleLogin = async () => {
     loading.value = false;
   }
 };
+const goToRegister = () => {
+  router.push("/register");
+};
 </script>
+
+<style scoped>
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: #1e1e1e;
+  border: none;
+  color: #eee;
+}
+
+.dark-input {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.dark-input::placeholder {
+  color: #aaa;
+}
+
+.form-label {
+  color: #ccc;
+}
+</style>
